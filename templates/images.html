@@ -1,0 +1,9 @@
+<% if (photos.length) { _.each(photos, function(photo) { %>
+  <div class="photo draggable">
+    <a class="photo__link fancybox" rel="gallery" href="<%= photo.large() %>" title="<%= photo.title() %>">
+      <img class="photo__image" src="<%= photo.thumbnail() %>" alt="<%- photo.get('title') %>">
+    </a>
+  </div>
+<% }) } else { %>
+  <div class="error"><span class="error__message">No images found</span></div>
+<% } %>

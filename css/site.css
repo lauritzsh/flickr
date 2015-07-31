@@ -1,0 +1,114 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+.wrap {
+    width: 470px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.drop-target {
+    cursor: pointer;
+    position: relative;
+    left: 500px;
+    bottom: 400px;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    background: black url('../images/download.png') no-repeat center center;
+    background-size: 50px;
+}
+
+.photo {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    float: left;
+    position: relative;
+    z-index: 0;
+}
+
+.photo__link:after {
+    content: '\A';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: all 0.5s;
+    background: rgba(0, 0, 0, 0.5) url('../images/plus.png') no-repeat center center;
+    background-size: 50px;
+}
+
+.photo__link:hover:after {
+    opacity: 1;
+}
+
+.photo__image {
+    vertical-align: bottom;
+}
+
+.photo:nth-child(3n) {
+    margin-right: 0;
+}
+
+.photo__link {
+    display: block;
+    height: 150px;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.photos {
+    height: 630px;
+    margin: 10px 0;
+}
+
+.next {
+    float: right;
+}
+
+.refresh {
+    display: block;
+    margin: 0 auto;
+}
+
+.loading {
+    position: absolute;
+    background-color: white;
+    z-index: 999;
+}
+
+.loading__progress {
+    width: 100%;
+    height: 100%;
+}
+
+.error {
+    text-align: center;
+}
+
+.error__message {
+    line-height: 630px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+    animation-name:             rotate;
+    animation-duration:         4s;
+    animation-iteration-count:  infinite;
+    animation-timing-function:  linear;
+}

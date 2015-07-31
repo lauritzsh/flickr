@@ -1,0 +1,11 @@
+{
+  "name": "flickr-photo-browser",
+  "private": true,
+  "authors": [
+    "Lauritz Hilsøe <mail@lauritz.me>"
+  ],
+  "dependencies": {
+    "normalize.css": "~3.0.3",
+    "fancybox": "~2.1.5"
+  }
+}
