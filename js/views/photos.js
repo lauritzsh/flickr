@@ -2,7 +2,8 @@ var StoreManager = require('../store-manager');
 var SearchImages = require('../collections/search-images.js');
 var _ = require('underscore');
 var $ = require('jquery');
-var imagesLoaded = require('imagesloaded');
+// because `imagesloaded` require the wrong package with AMD
+var imagesLoaded = require('imports?define=>false!imagesloaded');
 require('fancybox')($);
 
 module.exports = Backbone.View.extend({
@@ -19,7 +20,7 @@ module.exports = Backbone.View.extend({
       closeEffect: 'none'
     });
 
-    $('.loading__progress').val(0);
+    $('.loading__progress').css({width: 0});
     $('.loading').css({
       top:    this.photos.offset().top,
       width:  this.photos.outerWidth(),
@@ -67,7 +68,7 @@ module.exports = Backbone.View.extend({
 
     $('button').attr('disabled', true);
 
-    $('.loading__progress').val(0);
+    $('.loading__progress').css({width: 0});
     $('.loading').fadeIn('slow', function () {
       self.render();
     });
@@ -75,51 +76,53 @@ module.exports = Backbone.View.extend({
   insertPhotos: function(photos) {
     var self = this;
 
-    $.get('templates/images.html', function(data) {
-      var template = _.template(data);
-      if (photos) {
-        self.photos.html(template({
-          photos: photos.models
-        }));
+    var imagesTemplate = require('templates/images.html');
+    var template = _.template(imagesTemplate);
+    if (photos) {
+      self.photos.html(template({
+        photos: photos.models
+      }));
 
-        var dragSourceElement
-        $('.draggable')
-          .bind('dragstart', function(event) {
-            $('.drop-target').css({
-              'background-image': 'url("../images/plus.png")'
-            });
-            window.dragSourceElement = $(this).children();
-          })
-          .bind('dragend', function() {
-            $('.drop-target').css({
-              'background-image': 'url("../images/download.png")'
-            });
+      var dragSourceElement
+      $('.draggable')
+        .bind('dragstart', function(event) {
+          const image = require('images/plus.png');
+          $('.drop-target').css({
+            'background-image': `url("${image}")`
           });
-
-        var images = imagesLoaded(self.photos)
-        images.on('done', function() {
-          $('.loading').fadeOut();
-
-          if (self.collection.hasNextPage()) {
-            $('.next').attr('disabled', false);
-          }
-
-          if (self.collection.hasPreviousPage()) {
-            $('.prev').attr('disabled', false);
-          }
+          window.dragSourceElement = $(this).children();
         })
-
-        var count = 0;
-        images.on('progress', function(instance, image) {
-          $('.loading__progress').val(count++);
+        .bind('dragend', function() {
+          const image = require('images/download.png');
+          $('.drop-target').css({
+            'background-image': `url("${image}")`
+          });
         });
-      } else {
-        self.photos.html(template({
-          photos: []
-        }));
-        $('.loading').fadeOut();
-        $('button').attr('disabled', true);
-      }
-    });
+
+      var images = imagesLoaded(self.photos)
+      images.on('done', function() {
+        $('.loading').delay(450).fadeOut();
+
+        if (self.collection.hasNextPage()) {
+          $('.next').attr('disabled', false);
+        }
+
+        if (self.collection.hasPreviousPage()) {
+          $('.prev').attr('disabled', false);
+        }
+      })
+
+      var count = 0;
+      images.on('progress', function(instance, image) {
+        $('.loading__progress').css({width: `${++count / 12 * 100}%`});
+        console.log(count);
+      });
+    } else {
+      self.photos.html(template({
+        photos: []
+      }));
+      $('.loading').delay(450).fadeOut();
+      $('button').attr('disabled', true);
+    }
   }
 });

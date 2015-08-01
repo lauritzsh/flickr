@@ -3,7 +3,7 @@ var _ = require('underscore');
 var download = require('./download');
 var StoreManager = require('../store-manager');
 var JSZip = require('jszip');
-var saveAs = require('filesaver.js');
+import { saveAs } from 'FileSaver.js';
 
 module.exports = function save() {
   $('.drop-target').unbind('click', save);

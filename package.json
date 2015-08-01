@@ -2,25 +2,37 @@
   "name": "flickr-photo-browser",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "trash build && webpack",
+    "build:prod": "trash dist && NODE_ENV=production webpack",
+    "server": "npm run build && babel-node server",
+    "deploy": "npm run build:prod && gh-pages -d dist"
   },
   "devDependencies": {
-    "browser-sync": "^2.6.10",
-    "del": "^1.1.1",
-    "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^2.3.0",
-    "gulp-imagemin": "^2.2.1",
-    "gulp-sftp": "^0.1.4",
-    "gulp-webpack": "^1.4.0"
-  },
-  "dependencies": {
-    "backbone": "^1.2.0",
+    "autoprefixer-core": "^5.2.1",
+    "babel": "^5.8.21",
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "backbone": "^1.2.1",
     "backbone.paginator": "^2.0.2",
+    "css-loader": "^0.16.0",
+    "extract-text-webpack-plugin": "^0.8.2",
     "fancybox": "^3.0.0",
-    "filesaver.js": "^0.1.1",
+    "file-loader": "^0.8.4",
+    "filesaver.js": "^0.2.0",
+    "gh-pages": "^0.3.1",
+    "html-webpack-plugin": "^1.6.1",
+    "image-webpack-loader": "^1.6.1",
     "imagesloaded": "^3.1.8",
+    "imports-loader": "^0.6.4",
     "jquery": "^2.1.4",
     "jszip": "^2.5.0",
-    "underscore": "^1.8.3"
+    "postcss-loader": "^0.5.1",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.12.3",
+    "trash": "^2.0.0",
+    "underscore": "^1.8.3",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
   }
 }

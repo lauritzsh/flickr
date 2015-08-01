@@ -5,9 +5,9 @@
     <title>Flickr browser</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="components/normalize.css/normalize.css">
-    <link rel="stylesheet" href="components/fancybox/source/jquery.fancybox.css">
-    <link rel="stylesheet" href="css/site.css">
+    {% for (var css in o.htmlWebpackPlugin.files.css) { %}
+    <link rel="stylesheet" href="{%=o.htmlWebpackPlugin.files.css[css]%}">
+    {% } %}
   </head>
   <body>
     <div class="wrap">
@@ -18,7 +18,7 @@
           <a class="new" href="#">New</a>
           <a class="location" href="#/location">Location</a>
         </div>
-        <div class="loading"><progress class="loading__progress" value="0" max="12"></progress></div>
+        <div class="loading"><div class="loading__progress"></div></div>
         <div class="photos"><!-- photos will be replaced here --></div>
         <div class="main__nav"></div>
         <div class="drop-target"></div>
@@ -26,6 +26,8 @@
       <div class="footer"></div>
     </div>
 
-    <script src="js/app.js"></script>
+    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+    <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
+    {% } %}
   </body>
 </html>

@@ -32,7 +32,7 @@ module.exports = PhotosView.extend({
   refresh: function() {
     var self = this;
 
-    $('.loading__progress').val(0);
+    $('.loading__progress').css({width: 0});
     $('.loading').fadeIn('slow', function () {
       self.render();
     });

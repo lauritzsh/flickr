@@ -5,6 +5,10 @@ var Router = require('./router.js');
 var StoreManager = require('./store-manager');
 var save = require('./utils/save');
 
+import '../bower_components/normalize.css/normalize.css';
+import '../bower_components/fancybox/source/jquery.fancybox.css';
+import '../css/site.css';
+
 var router = new Router();
 Backbone.history.start();
 

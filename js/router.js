@@ -1,7 +1,4 @@
 var Backbone = require('backbone');
-var MainView = require('./views/main.js');
-var LocationView = require('./views/location.js');
-var SearchView = require('./views/search.js');
 
 var ViewManager = {
   currentView: null,
@@ -21,15 +18,21 @@ module.exports = Backbone.Router.extend({
     'search/:query': 'search'
   },
   main: function() {
-    var main = new MainView();
-    ViewManager.showView(main)
+    require(['./views/main'], function(MainView) {
+      var main = new MainView();
+      ViewManager.showView(main);
+    });
   },
   location: function() {
-    var location = new LocationView();
-    ViewManager.showView(location)
+    require(['./views/location.js'], function(LocationView) {
+      var location = new LocationView();
+      ViewManager.showView(location);
+    });
   },
   search: function(query) {
-    var search = new SearchView({query: query});
-    ViewManager.showView(search)
+    require(['./views/search.js'], function(SearchView) {
+      var search = new SearchView({query: query});
+      ViewManager.showView(search);
+    });
   }
 });

@@ -4,8 +4,8 @@
   "authors": [
     "Lauritz Hilsøe <mail@lauritz.me>"
   ],
-  "dependencies": {
-    "normalize.css": "~3.0.3",
-    "fancybox": "~2.1.5"
+  "devDependencies": {
+    "fancybox": "2.1.5",
+    "normalize.css": "3.0.3"
   }
 }
